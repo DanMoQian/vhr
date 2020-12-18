@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.javaboy.vhr.mapper.custom.EmployeeecMapperCustom" >
+    <select id="selectAllByPage" resultMap="rm">
+        select ec.id, ec.eid, e.name, ec.ecDate, ec.ecType, ec.ecReason, ec.ecPoint, ec.remark
+        from employeeec ec , employee e
+        where ec.eid = e.id
+        order by ec.ecDate desc
+        limit #{page}, #{pageSize}
+    </select>
+
+    <resultMap id="rm" type="EmployeeecCustom">
+        <result column="id" property="id"></result>
+        <result column="eid" property="eid"></result>
+        <result column="ecDate" property="ecdate"></result>
+        <result column="ecType" property="ectype"></result>
+        <result column="ecReason" property="ecreason"></result>
+        <result column="ecPoint" property="ecpoint"></result>
+        <result column="remark" property="remark"></result>
+        <result column="name" property="name"></result>
+    </resultMap>
+
+    <select id="getAllCount" resultType="Integer">
+        select count(*)
+        from employeeec ec , employee e
+        where ec.eid = e.id
+    </select>
+
+</mapper>
